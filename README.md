@@ -42,6 +42,7 @@
 [공간 확보] 아래 이미지 영역에 ufw status 명령어 결과 화면 캡처본을 매칭하세요.
 ```
 ![방화벽 설정 규칙 화면](docs/screenshots/01_ssh_ufw.png)
+<img width="774" height="173" alt="01_ssh_ufw" src="https://github.com/user-attachments/assets/74237cfd-b306-442d-a862-f4dab43fb545" />
 
 ---
 
@@ -52,6 +53,7 @@
 [공간 확보] 아래 이미지 영역에 계정별 id 결과 및 디렉토리 권한 ls -l 결과 화면 캡처본을 매칭하세요.
 ```
 ![계정 그룹 및 권한 구조 확인 화면](docs/screenshots/02_accounts.png)
+<img width="738" height="205" alt="02_accounts" src="https://github.com/user-attachments/assets/cd75f0e0-93aa-4235-8c95-f188f505ccbc" />
 
 ---
 
@@ -62,6 +64,7 @@
 [공간 확보] 아래 이미지 영역에 파이썬 앱 실행 직후 Agent READY가 찍힌 터미널 화면 캡처본을 매칭하세요.
 ```
 ![App Boot Sequence 통과 화면](docs/screenshots/03_app_boot.png)
+<img width="567" height="278" alt="03_app_boot" src="https://github.com/user-attachments/assets/eab3ca35-3559-4044-9c88-d5f153081da7" />
 
 ---
 
@@ -72,3 +75,4 @@
 [공간 확보] 아래 이미지 영역에 sudo tail -f /var/log/agent-app/monitor.log 출력 화면 캡처본을 매칭하세요.
 ```
 ![crontab 실행 및 monitor.log 실시간 누적 화면](docs/screenshots/04_cron_log.png)
+<img width="642" height="173" alt="04_cron_log" src="https://github.com/user-attachments/assets/16fbeddd-e450-4a48-a87b-87f1fec5bc00" />
