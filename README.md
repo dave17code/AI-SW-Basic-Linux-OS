@@ -168,7 +168,7 @@ fi
 sudo grep -E "Port|PermitRootLogin" /etc/ssh/sshd_config | grep -v '^#'
 sudo ss -tulnp | grep ssh
 ```
-<img width="860" height="92" alt="01_ssh" src="https://github.com/user-attachments/assets/9e65a7d3-9374-4dd7-b9b4-08a3b25d75e6" />
+<img width="918" height="135" alt="01_ssh" src="https://github.com/user-attachments/assets/53b9f6c3-65cc-4d0b-a78b-82060afc7e5c" />
 
 ---
 
