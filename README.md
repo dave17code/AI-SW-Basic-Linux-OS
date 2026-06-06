@@ -195,7 +195,7 @@ id agent-admin; id agent-dev; id agent-test
 ```bash
 ls -l /home/agent-dev/agent-app
 ```
-![디렉토리 권한 확인](docs/screenshots/04_dir_permission.png)
+<img width="630" height="113" alt="04_directory" src="https://github.com/user-attachments/assets/6ff421a9-7a49-4eb4-89c1-107d083cb79c" />
 
 ---
 
