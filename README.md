@@ -186,7 +186,7 @@ sudo ufw status verbose
 ```bash
 id agent-admin; id agent-dev; id agent-test
 ```
-![계정 생성 확인](docs/screenshots/03_rbac_identity.png)
+<img width="820" height="93" alt="03_accounts" src="https://github.com/user-attachments/assets/b3559035-a759-4141-854b-a52621834643" />
 
 ---
 
