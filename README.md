@@ -177,7 +177,7 @@ sudo ss -tulnp | grep ssh
 ```bash
 sudo ufw status verbose
 ```
-![방화벽 허용 내역](docs/screenshots/02_ufw_status.png)
+<img width="598" height="305" alt="02_ufw" src="https://github.com/user-attachments/assets/394128b8-5c98-4d39-94ac-ab1dfd4c7fc2" />
 
 ---
 
