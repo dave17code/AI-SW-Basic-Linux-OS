@@ -204,7 +204,7 @@ ls -l /home/agent-dev/agent-app
 ```bash
 $AGENT_HOME/agent-app-linux-x86
 ```
-![앱 부트 시퀀스 확인](docs/screenshots/05_app_boot.png)
+<img width="577" height="328" alt="05_app_boot" src="https://github.com/user-attachments/assets/4dfcf756-308a-447d-853a-0721c6fe9116" />
 
 ---
 
