@@ -213,7 +213,7 @@ $AGENT_HOME/agent-app-linux-x86
 ```bash
 /home/agent-dev/agent-app/bin/monitor.sh
 ```
-![스크립트 실행 결과 확인](docs/screenshots/06_script_test.png)
+<img width="1032" height="155" alt="06_script_run" src="https://github.com/user-attachments/assets/ddd3d234-26d8-4f01-ac16-0247f045a2bc" />
 
 ---
 
