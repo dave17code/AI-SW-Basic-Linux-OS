@@ -217,18 +217,23 @@ $AGENT_HOME/agent-app-linux-x86
 
 ---
 
-### 📸 7) crontab 매분 실행 등록 및 자동 실행 확인(1분 후 로그 증가) 내역
-> **체크리스트:** 크론 정기 스케줄러 장부에 매분(`* * * * *`) 로봇 상주 검증 (수행: agent-admin)
-```bash
-crontab -l | grep -v '^#'
-```
-<img width="533" height="46" alt="07_cron_setting" src="https://github.com/user-attachments/assets/154ee4ed-df9b-4013-aa13-17f4b524afa6" />
+### 📸 7) crontab 매분 정기 스케줄러 등록 및 상주 설정 내역
+- **체크리스트**: 크론(cron) 시스템 장부에 모니터링 대본(`monitor.sh`)이 매분(`* * * * *`) 자발적으로 실행되도록 정상 등록되었는지 가동 스케줄 확인 (수행 계정: `agent-admin`)
+- **실행 명령어**:
+  ```bash
+  crontab -l | grep -v '^#'
+  ```
+  ![크론탭 등록 확인](docs/screenshots/07_cron_setting.png)
+  *(💡 불필요한 시스템 주석 설명(#)을 제외하고, 직접 등록한 핵심 스케줄 규칙만 정제되어 출력된 상태)*
 
 ---
 
-### 📸 8) /var/log/agent-app/monitor.log 누적 기록 확인(최근 라인) 내역
-> **체크리스트:** 크론 로봇 가동 후 로그 파일의 관제 라인이 실시간 누적되는지 추적 (수행: agent-admin)
-```bash
-tail -f /var/log/agent-app/monitor.log
-```
-![로그 누적 기록 확인](docs/screenshots/08_monitor_log.png)
+### 📸 8) /var/log/agent-app/monitor.log 실시간 자동 누적 및 주기성 검증 내역
+- **체크리스트**: 크론 스케줄러에 의해 인프라 관제 대본이 1분 주기로 자동 호출되며, 중앙 로그 저장소에 관제 데이터 라인이 끊김 없이 실시간 누적(로그 증가)되는지 추적 (수행 계정: `agent-admin`)
+- **실행 명령어**:
+  ```bash
+  tail -f /var/log/agent-app/monitor.log
+  ```
+- **증적 자료**:
+  ![로그 누적 기록 확인](docs/screenshots/08_monitor_log.png)
+  *(💡 `tail -f` 실행 후 별도의 수동 조작 없이도 타임라인 항목이 1분 단위로 촘촘하게 자동 갱신되며 누적되는 실시간 결과창)*
