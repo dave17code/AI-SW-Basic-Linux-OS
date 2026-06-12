@@ -233,6 +233,6 @@ $AGENT_HOME/agent-app-linux-x86
   ```bash
   tail -f /var/log/agent-app/monitor.log
   ```
-- **증적 자료**:
-  ![로그 누적 기록 확인](docs/screenshots/08_monitor_log.png)
-  *(💡 `tail -f` 실행 후 별도의 수동 조작 없이도 타임라인 항목이 1분 단위로 촘촘하게 자동 갱신되며 누적되는 실시간 결과창)*
+<img width="663" height="292" alt="08_monitor_log" src="https://github.com/user-attachments/assets/1c081da5-1829-44d9-a1a6-969ad8ac9c23" />
+
+---
