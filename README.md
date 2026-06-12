@@ -222,7 +222,7 @@ $AGENT_HOME/agent-app-linux-x86
 ```bash
 crontab -l | grep -v '^#'
 ```
-![크론탭 등록 확인](docs/screenshots/07_cron_setting.png)
+<img width="533" height="46" alt="07_cron_setting" src="https://github.com/user-attachments/assets/154ee4ed-df9b-4013-aa13-17f4b524afa6" />
 
 ---
 
