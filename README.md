@@ -220,7 +220,7 @@ $AGENT_HOME/agent-app-linux-x86
 ### 📸 7) crontab 매분 실행 등록 및 자동 실행 확인(1분 후 로그 증가) 내역
 > **체크리스트:** 크론 정기 스케줄러 장부에 매분(`* * * * *`) 로봇 상주 검증 (수행: agent-admin)
 ```bash
-crontab -l
+crontab -l | grep -v '^#'
 ```
 ![크론탭 등록 확인](docs/screenshots/07_cron_setting.png)
 
