@@ -223,8 +223,7 @@ $AGENT_HOME/agent-app-linux-x86
   ```bash
   crontab -l | grep -v '^#'
   ```
-  ![크론탭 등록 확인](docs/screenshots/07_cron_setting.png)
-  *(💡 불필요한 시스템 주석 설명(#)을 제외하고, 직접 등록한 핵심 스케줄 규칙만 정제되어 출력된 상태)*
+<img width="533" height="46" alt="07_cron_setting" src="https://github.com/user-attachments/assets/4aa2fbda-e21c-49b5-857e-0425f3402d99" />
 
 ---
 
