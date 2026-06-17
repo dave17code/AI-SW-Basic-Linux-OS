@@ -102,6 +102,9 @@ export AGENT_LOG_DIR="/var/log/agent-app"
 ```bash
 #!/bin/bash
 
+# =========================================================================
+# [환경변수 및 기본 장부 설정]
+# =========================================================================
 if [ -z "$AGENT_HOME" ]; then
     AGENT_HOME="/home/agent-dev/agent-app"
 fi
@@ -110,28 +113,44 @@ LOG_DIR="/var/log/agent-app"
 LOG_FILE="$LOG_DIR/monitor.log"
 TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
 
-# 1. 프로세스 가동 무결성 검사
+# [안전장치] 로그 디렉터리가 없을 경우를 대비해 실시간 자동 생성
+if [ ! -d "$LOG_DIR" ]; then
+    sudo mkdir -p "$LOG_DIR"
+    sudo chown root:agent-core "$LOG_DIR"
+    sudo chmod 775 "$LOG_DIR"
+fi
+
+# =========================================================================
+# 미션 1. 프로세스 가동 무결성 검사
+# =========================================================================
 PID=$(pgrep -f "agent-app-linux" | paste -sd "," -)
 if [ -z "$PID" ]; then
     echo "[$TIMESTAMP] [ERROR] Process not running." >> "$LOG_FILE"
     exit 1
 fi
 
-# 2. 관제 서비스 포트 바인딩 검사
+# =========================================================================
+# 미션 2. 관제 서비스 포트 바인딩 검사
+# =========================================================================
 PORT_CHECK=$(ss -tln | grep -w "15034")
 if [ -z "$PORT_CHECK" ]; then
     echo "[$TIMESTAMP] [ERROR] Port 15034 closed." >> "$LOG_FILE"
     exit 1
 fi
 
-# 3. 시스템 하드웨어 리소스 파싱
+# =========================================================================
+# 미션 3. 시스템 하드웨어 리소스 파싱 (순수 정수 변환)
+# =========================================================================
 CPU_IDLE=$(top -bn1 | grep "Cpu(s)" | awk '{print $8}')
 CPU_USED=$(echo "100 - $CPU_IDLE" | bc)
 CPU_INT=$(echo "$CPU_USED" | awk '{print int($1)}')
+
 MEM_USED=$(free | grep Mem | awk '{print int($3/$2 * 100)}')
 DISK_USED=$(df / | tail -1 | awk '{print $5}' | tr -d '%')
 
-# 임계치 초과 시 경고 핸들링
+# =========================================================================
+# 미션 4. 임계치 초과 시 경고 핸들링 (WARNING 로그 누적)
+# =========================================================================
 if [ "$CPU_INT" -gt 20 ]; then 
     echo "[$TIMESTAMP] [WARNING] CPU exceeded 20% (${CPU_INT}%)" >> "$LOG_FILE"
 fi
@@ -142,16 +161,36 @@ if [ "$DISK_USED" -gt 80 ]; then
     echo "[$TIMESTAMP] [WARNING] DISK exceeded 80% (${DISK_USED}%)" >> "$LOG_FILE"
 fi
 
-# 표준 관제 포맷 로그 축적
-echo "[$TIMESTAMP] PID:$PID CPU:${CPU_INT}% MEM:${MEM_USED}% DISK:${DISK_USED}%" \
-    >> "$LOG_FILE"
+# =========================================================================
+# 미션 5. 표준 관제 포맷 로그 실시간 누적 (>> 사용)
+# =========================================================================
+echo "[$TIMESTAMP] PID:$PID CPU:${CPU_INT}% MEM:${MEM_USED}% DISK:${DISK_USED}%" >> "$LOG_FILE"
 
-# 로그 파일 로테이션 (10MB 제한)
+# =========================================================================
+# 미션 6. 핵심 보완: 롤링 로그 로테이션 (10MB 제한 및 총 10개 파일 유지)
+# =========================================================================
 if [ -f "$LOG_FILE" ]; then
     FILE_SIZE=$(wc -c < "$LOG_FILE")
-    MAX_SIZE=$((10 * 1024 * 1024))
+    MAX_SIZE=$((10 * 1024 * 1024)) # 10MB 바이트 단위 환산
+
     if [ "$FILE_SIZE" -gt "$MAX_SIZE" ]; then
-        mv "$LOG_FILE" "${LOG_FILE}.old" && touch "$LOG_FILE"
+        # [1단계] 가장 오래된 9번째 백업 파일이 존재하면 과감히 삭제 (총 용량 한계선 방어)
+        if [ -f "${LOG_FILE}.9" ]; then
+            rm "${LOG_FILE}.9"
+        fi
+
+        # [2단계] 역순(8부터 1까지)으로 백업 파일 번호를 한 칸씩 뒤로 밀기 (도미노 매커니즘)
+        for i in $(seq 8 -1 1); do
+            if [ -f "${LOG_FILE}.$i" ]; then
+                next=$((i + 1))
+                mv "${LOG_FILE}.$i" "${LOG_FILE}.$next"
+            fi
+        done
+
+        # [3단계] 현재 꽉 찬 메인 로그를 대피시키고 새 도화지 개설
+        mv "$LOG_FILE" "${LOG_FILE}.1" && touch "$LOG_FILE"
+        
+        # [4단계] 보안 지침에 따른 소유권 및 접근 권한 재설정
         sudo chown root:agent-core "$LOG_FILE"
         sudo chmod 660 "$LOG_FILE"
     fi
