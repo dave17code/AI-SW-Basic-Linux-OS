@@ -247,7 +247,7 @@ $AGENT_HOME/agent-app-linux-x86
 
 ---
 
-### 📸 6) `monitor.sh` 실행 결과(프로세스/포트/리소스/경고) 내역
+### 📸 6) `monitor.sh` 실행 결과(프로세스/포트/리소스) 내역
 > **체크리스트:** 자원 수집 스크립트를 수동 1회 가동하여 정상 파싱 처리되는지 확인 (수행: agent-dev)
 ```bash
 /home/agent-dev/agent-app/bin/monitor.sh
